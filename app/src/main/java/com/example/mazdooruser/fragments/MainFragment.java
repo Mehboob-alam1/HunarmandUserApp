@@ -45,7 +45,7 @@ list= new ArrayList<>();
 
         fetchBanners();
         binding.btntalktoUs.setOnClickListener(view -> {
-            String contact = "+92 323 8858040"; // use country code with your phone number
+            String contact = "+92 3129700730"; // use country code with your phone number
 
             String url = "https://api.whatsapp.com/send?phone=" + contact;
             try {
@@ -92,7 +92,8 @@ list= new ArrayList<>();
 //                        Toast.makeText(StartScreen.this, ""+data, Toast.LENGTH_SHORT).show();
                         list.add(new Slider(imageLink, imageUrl, pushId));
                     }
-                    adapter = new SliderAdapter(list,getActivity().getApplicationContext());
+
+                    adapter = new SliderAdapter(list,getContext());
                     binding.imageSliderMain.setSliderAdapter(adapter);
                     setSlider();
                 }

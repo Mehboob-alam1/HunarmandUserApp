@@ -36,7 +36,7 @@ public class ServicesFragment extends Fragment {
         binding.btntalktoUsService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String contact = "+92 323 8858040"; // use country code with your phone number
+                String contact = "+92 3129700730"; // use country code with your phone number
                 String url = "https://api.whatsapp.com/send?phone=" + contact;
                 try {
                     PackageManager pm = getContext().getPackageManager();

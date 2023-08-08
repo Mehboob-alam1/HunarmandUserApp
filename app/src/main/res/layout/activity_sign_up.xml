@@ -5,7 +5,7 @@
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignUpActivity">
 
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
 
-        android:text="Login"
+        android:text="Sign Up"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -43,11 +43,11 @@
             android:background="@drawable/backgroud_edittext">
 
             <EditText
-                android:id="@+id/etUserNameIn"
+                android:id="@+id/etUserNameUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:hint="Enter your email"
+                android:hint="Username"
 
                 android:singleLine="true"
                 android:textColor="@color/black"
@@ -68,10 +68,10 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/etPasswordIn"
+                android:id="@+id/etPasswordUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your password"
+                android:hint="Password"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:textAlignment="textStart"
@@ -84,7 +84,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -92,7 +92,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/bg_btn"
-        android:text="Sign In"
+        android:text="Register"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,23 +110,23 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn">
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="No Account?"
+            android:text="Already have an account?"
             android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/txtSignUP"
+            android:id="@+id/txtSignIn"
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginLeft="10dp"
-            android:text="Sign Up"
+            android:text="Sign in"
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
