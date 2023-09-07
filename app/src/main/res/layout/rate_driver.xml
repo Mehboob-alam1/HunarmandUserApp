@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/rateDriverLayout"
+    app:cardElevation="3dp"
+    android:layout_height="wrap_content" >
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp"
+        app:cardElevation="3dp"
+        android:layout_height="wrap_content"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+
+                android:layout_gravity="center_horizontal"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:id="@+id/rateDriver"
+
+                    android:text="Rate Provider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/fg" />
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/view1"
+
+                    app:layout_constraintTop_toBottomOf="@id/rateDriver"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:id="@+id/lineDriver"
+                    app:layout_constraintTop_toBottomOf="@id/view1"
+                    android:orientation="horizontal">
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Daniyal Khan"
+                            android:id="@+id/txtProviderNameRate"
+                            android:textColor="@color/black"
+
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Honda"
+                            android:id="@+id/txtTypeRate"
+                            android:textSize="18sp"
+                            />
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/view2"
+
+                    app:layout_constraintTop_toBottomOf="@id/lineDriver"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2" >
+                    <TextView
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+
+                        android:textAlignment="center"
+
+                        android:text="How is your provider?"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Please rate your provider..."
+                        android:textAlignment="center"/>
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:id="@+id/rateBar"
+                        android:layout_marginTop="8dp"
+                        android:stepSize="0.5"
+                        android:layout_gravity="center_horizontal"/>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="Rate"
+                        android:textAllCaps="false"
+                        android:id="@+id/btnRateDriver"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

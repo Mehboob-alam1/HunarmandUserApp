@@ -40,6 +40,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.6'
     implementation 'com.google.firebase:firebase-storage:20.0.2'
     implementation 'com.google.firebase:firebase-auth:21.0.8'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.google.firebase:firebase-messaging:23.2.1'
     testImplementation 'junit:junit:4.13.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation "com.airbnb.android:lottie:5.2.0"
@@ -51,4 +53,18 @@ dependencies {
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.tbuonomo:dotsindicator:4.3'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+
+    // Rx java
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+//RxJava
+
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 }

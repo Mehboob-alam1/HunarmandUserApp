@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -54,6 +56,9 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
         holder.moreImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Gson gson = new Gson();
+
+             String str=   gson.toJson(data);
                    Intent intent=new Intent(context,ProviderDetailsActivity.class);
                    intent.putExtra("city",data.getCity());
                    intent.putExtra("desc",data.getDescription());
@@ -61,6 +66,8 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
                    intent.putExtra("name",data.getName());
                    intent.putExtra("phone",data.getPhonenumber());
                    intent.putExtra("servtype",data.getServiceType());
+                intent.putExtra("userId",data.getUserId());
+
                    context.startActivity(intent);
 
             }
@@ -72,6 +79,21 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
                 intent.setData(Uri.parse("tel:" +data.getPhonenumber()));
                context. startActivity(intent);
             }
+        });
+
+
+        holder.btnCheckRatings.setOnClickListener(view -> {
+
+
+             Intent intent = new Intent(context,RatingsActivity.class);
+            intent.putExtra("city",data.getCity());
+            intent.putExtra("desc",data.getDescription());
+            intent.putExtra("image",data.getImage());
+            intent.putExtra("name",data.getName());
+            intent.putExtra("phone",data.getPhonenumber());
+            intent.putExtra("servtype",data.getServiceType());
+            intent.putExtra("userId",data.getUserId());
+            context.startActivity(intent);
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +136,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView profileImage, phoneImage,moreImage;
         TextView name, phoneNumber, address;
+        LinearLayout btnCheckRatings;
 
 
 
@@ -126,6 +149,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
             phoneNumber = itemView.findViewById(R.id.txtphonenumber);
             address = itemView.findViewById(R.id.txtAddress);
             moreImage=itemView.findViewById(R.id.btnMore);
+            btnCheckRatings=itemView.findViewById(R.id.btnCheckRatings);
         }
     }
 }
