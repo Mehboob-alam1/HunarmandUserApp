@@ -11,6 +11,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.mazdooruser.databinding.ActivityProviderDetailsBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ProviderDetailsActivity extends AppCompatActivity {
     ActivityProviderDetailsBinding binding;
@@ -36,7 +38,8 @@ public class ProviderDetailsActivity extends AppCompatActivity {
     String userId;
     Type type;
     Gson gson;
-
+String pushId;
+private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,23 +54,23 @@ public class ProviderDetailsActivity extends AppCompatActivity {
         servType = getIntent().getStringExtra("servtype");
         userId = getIntent().getStringExtra("userId");
 
-
+pushId= UUID.randomUUID().toString();
         binding.txtAbout.setText("About " + name);
         Picasso.get().load(image).placeholder(R.drawable.provider).into(binding.img);
         binding.contactDetails.setText("Name  " + name + "\n" + "City  " + city + "\n" + "Phone number  " + phone + "\n" + "Service Type  " + servType);
         binding.desc.setText(desc);
         binding.btnHire.setOnClickListener(view -> {
             DatabaseReference databaseReference1 =  FirebaseDatabase.getInstance().getReference("userInfo");
-            databaseReference1.child(servType).child(userId).child("token")
+            databaseReference1.child(servType).child(userId).child(pushId).child("token")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()){
 
                                 fcmToken=   snapshot.getValue(String.class);
-                                UserInfoModel data = new UserInfoModel(image,name,phone,city,desc,"","",servType,servType,userId,true);
+                                UserInfoModel data = new UserInfoModel(image,name,phone,city,desc,"","",servType,servType,userId,true,pushId,false);
 
-                                setOrder(data);
+                                setOrderUser(data);
                             }else {
                                 Toast.makeText(ProviderDetailsActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
@@ -93,10 +96,10 @@ public class ProviderDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void setOrder(UserInfoModel data) {
+    private void setOrderUser(UserInfoModel data) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Orders")
+        databaseReference.child("UserOrders")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
 
                 .setValue(data)
@@ -104,7 +107,7 @@ public class ProviderDetailsActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()){
                         Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                        onSendNotification("User","Booked you",fcmToken);
+                       fetchData();
                         finish();
 
                     }else{
@@ -119,7 +122,27 @@ public class ProviderDetailsActivity extends AppCompatActivity {
 
 
     }
+    private void fetchData() {
+DatabaseReference mRef=FirebaseDatabase.getInstance().getReference();
+        mRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            user = snapshot.getValue(User.class);
 
+                            onSendNotification(user.getFirst_name() +" " +user.getSur_name(),"Booked you",fcmToken);
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
     private void onSendNotification(String name, String send_you_and_interest, String token) {
         try {
 

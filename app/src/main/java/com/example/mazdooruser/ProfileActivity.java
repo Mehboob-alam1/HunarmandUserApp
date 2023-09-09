@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.mazdooruser.databinding.ActivityProfileBinding;
@@ -16,6 +18,7 @@ import com.example.mazdooruser.fragments.MainFragment;
 import com.example.mazdooruser.fragments.ProfileFragment;
 import com.example.mazdooruser.fragments.ServicesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
     ActivityProfileBinding binding;
@@ -104,4 +107,38 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         }
     };
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+
+            case R.id.action_settings:
+                signOut();
+                return true;
+            case R.id.action_profile:
+
+                loadMyProfile();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void loadMyProfile() {
+        Intent i = new Intent(ProfileActivity.this,MyProfileActivity.class);
+        startActivity(i);
+    }
+
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finishAffinity();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 }

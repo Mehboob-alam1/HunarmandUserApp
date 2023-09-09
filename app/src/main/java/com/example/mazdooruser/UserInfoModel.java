@@ -4,6 +4,8 @@ public class UserInfoModel {
 
     private String image,name,phonenumber,city,description,latitude,longitude,userType,serviceType,userId;
     boolean isVerified;
+    private String pushId;
+    private boolean isCompleted;
 
     public boolean isVerified() {
         return isVerified;
@@ -16,6 +18,22 @@ public class UserInfoModel {
     public UserInfoModel() {
     }
 
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -24,7 +42,7 @@ public class UserInfoModel {
         this.userId = userId;
     }
 
-    public UserInfoModel(String image, String name, String phonenumber, String city, String description, String latitude, String longitude, String userType, String serviceType, String userId, boolean isVerified) {
+    public UserInfoModel(String image, String name, String phonenumber, String city, String description, String latitude, String longitude, String userType, String serviceType, String userId, boolean isVerified, String pushId, boolean isCompleted) {
         this.image = image;
         this.name = name;
         this.phonenumber = phonenumber;
@@ -34,8 +52,10 @@ public class UserInfoModel {
         this.longitude = longitude;
         this.userType = userType;
         this.serviceType = serviceType;
-        this.userId=userId;
-        this.isVerified=isVerified;
+        this.userId = userId;
+        this.isVerified = isVerified;
+        this.pushId = pushId;
+        this.isCompleted = isCompleted;
     }
 
     public String getImage() {
