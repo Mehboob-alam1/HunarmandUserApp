@@ -57,14 +57,16 @@ public class ProviderDetailsActivity extends AppCompatActivity {
         servType = getIntent().getStringExtra("servtype");
         userId = getIntent().getStringExtra("userId");
         fetchData();
+        Toast.makeText(this, ""+FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
         pushId = UUID.randomUUID().toString();
         binding.txtAbout.setText("About " + name);
         Picasso.get().load(image).placeholder(R.drawable.provider).into(binding.img);
         binding.contactDetails.setText("Name  " + name + "\n" + "City  " + city + "\n" + "Phone number  " + phone + "\n" + "Service Type  " + servType);
         binding.desc.setText(desc);
         binding.btnHire.setOnClickListener(view -> {
+            Toast.makeText(this, ""+userId, Toast.LENGTH_SHORT).show();
             DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("userInfo");
-            databaseReference1.child(servType).child(userId).child(pushId).child("token")
+            databaseReference1.child(servType).child(userId).child("token")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,7 +77,7 @@ public class ProviderDetailsActivity extends AppCompatActivity {
 
                                 setOrderUser(data);
                             } else {
-                                Toast.makeText(ProviderDetailsActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(ProviderDetailsActivity.this, "Something went wrong token", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -104,6 +106,7 @@ public class ProviderDetailsActivity extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("UserOrders")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(pushId)
 
                 .setValue(data)
                 .addOnCompleteListener(task -> {
@@ -148,7 +151,7 @@ public class ProviderDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("Users");
         mRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -157,6 +160,8 @@ public class ProviderDetailsActivity extends AppCompatActivity {
                             user = snapshot.getValue(User.class);
 
 
+                        }else{
+                            Toast.makeText(ProviderDetailsActivity.this, "No user data", Toast.LENGTH_SHORT).show();
                         }
                     }
 
