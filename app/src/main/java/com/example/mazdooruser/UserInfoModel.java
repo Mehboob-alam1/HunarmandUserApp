@@ -6,6 +6,11 @@ public class UserInfoModel {
     boolean isVerified;
     private String pushId;
     private boolean isCompleted;
+    private String userId2;
+    private String userName;
+    private String userAddress;
+
+
 
     public boolean isVerified() {
         return isVerified;
@@ -42,7 +47,7 @@ public class UserInfoModel {
         this.userId = userId;
     }
 
-    public UserInfoModel(String image, String name, String phonenumber, String city, String description, String latitude, String longitude, String userType, String serviceType, String userId, boolean isVerified, String pushId, boolean isCompleted) {
+    public UserInfoModel(String image, String name, String phonenumber, String city, String description, String latitude, String longitude, String userType, String serviceType, String userId, boolean isVerified, String pushId, boolean isCompleted, String userId2, String userName, String userAddress) {
         this.image = image;
         this.name = name;
         this.phonenumber = phonenumber;
@@ -56,6 +61,33 @@ public class UserInfoModel {
         this.isVerified = isVerified;
         this.pushId = pushId;
         this.isCompleted = isCompleted;
+        this.userId2 = userId2;
+        this.userName = userName;
+        this.userAddress = userAddress;
+    }
+
+    public String getUserId2() {
+        return userId2;
+    }
+
+    public void setUserId2(String userId2) {
+        this.userId2 = userId2;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public String getImage() {

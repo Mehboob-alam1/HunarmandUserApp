@@ -1,5 +1,7 @@
 package com.example.mazdooruser;
 
+import static com.example.mazdooruser.Utils.showSnackBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,8 +40,9 @@ public class ProviderDetailsActivity extends AppCompatActivity {
     String userId;
     Type type;
     Gson gson;
-String pushId;
-private User user;
+    String pushId;
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,32 +56,32 @@ private User user;
         phone = getIntent().getStringExtra("phone");
         servType = getIntent().getStringExtra("servtype");
         userId = getIntent().getStringExtra("userId");
-
-pushId= UUID.randomUUID().toString();
+        fetchData();
+        pushId = UUID.randomUUID().toString();
         binding.txtAbout.setText("About " + name);
         Picasso.get().load(image).placeholder(R.drawable.provider).into(binding.img);
         binding.contactDetails.setText("Name  " + name + "\n" + "City  " + city + "\n" + "Phone number  " + phone + "\n" + "Service Type  " + servType);
         binding.desc.setText(desc);
         binding.btnHire.setOnClickListener(view -> {
-            DatabaseReference databaseReference1 =  FirebaseDatabase.getInstance().getReference("userInfo");
+            DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("userInfo");
             databaseReference1.child(servType).child(userId).child(pushId).child("token")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()){
+                            if (snapshot.exists()) {
 
-                                fcmToken=   snapshot.getValue(String.class);
-                                UserInfoModel data = new UserInfoModel(image,name,phone,city,desc,"","",servType,servType,userId,true,pushId,false);
+                                fcmToken = snapshot.getValue(String.class);
+                                UserInfoModel data = new UserInfoModel(image, name, phone, city, desc, "", "", servType, servType, userId, true, pushId, false, user.getUser_id(), user.getFirst_name(), user.getAddress());
 
                                 setOrderUser(data);
-                            }else {
+                            } else {
                                 Toast.makeText(ProviderDetailsActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(ProviderDetailsActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProviderDetailsActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -105,33 +108,53 @@ pushId= UUID.randomUUID().toString();
                 .setValue(data)
                 .addOnCompleteListener(task -> {
 
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                       fetchData();
+
+
+                        setOrderProvider(data);
+
                         finish();
 
-                    }else{
+                    } else {
                         Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(e -> {
 
 
-                    Toast.makeText(this, ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 });
 
 
-
     }
+
+    private void setOrderProvider(UserInfoModel data) {
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProviderOrder");
+        databaseReference.child(data.getUserId())
+                .child(pushId)
+                .setValue(data)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        showSnackBar(this, "Order sent");
+                        onSendNotification(user.getFirst_name() + " " + user.getSur_name(), "Booked you", fcmToken);
+                    } else {
+                        showSnackBar(this, "something went wrong");
+                    }
+                }).addOnFailureListener(e -> {
+                    showSnackBar(this, e.getLocalizedMessage());
+                });
+    }
+
     private void fetchData() {
-DatabaseReference mRef=FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
         mRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             user = snapshot.getValue(User.class);
-
-                            onSendNotification(user.getFirst_name() +" " +user.getSur_name(),"Booked you",fcmToken);
 
 
                         }
@@ -143,6 +166,7 @@ DatabaseReference mRef=FirebaseDatabase.getInstance().getReference();
                     }
                 });
     }
+
     private void onSendNotification(String name, String send_you_and_interest, String token) {
         try {
 
