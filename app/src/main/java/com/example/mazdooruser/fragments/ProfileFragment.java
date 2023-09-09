@@ -148,7 +148,8 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()){
-
+binding.txtNoData.setVisibility(View.GONE);
+binding.layoutData.setVisibility(View.VISIBLE);
 
                        data=      snapshot.getValue(UserInfoModel.class);
 
@@ -160,11 +161,17 @@ public class ProfileFragment extends Fragment {
                                 intent.setData(Uri.parse("tel:" +data.getPhonenumber()));
                                 requireActivity().startActivity(intent);
                             });
+                        }else{
+                            binding.txtNoData.setVisibility(View.VISIBLE);
+                            binding.layoutData.setVisibility(View.GONE);
+
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        binding.txtNoData.setVisibility(View.VISIBLE);
+                        binding.layoutData.setVisibility(View.GONE);
 
                     }
                 });

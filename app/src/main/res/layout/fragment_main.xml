@@ -24,10 +24,10 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
 
-                android:text="Mazdoor App"
+                android:text="House wise solution"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -36,7 +36,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
 
 
                 android:text="We help people to find\n skill full people"
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
-                android:text="Mazdoor App Services"
+                android:text="House wise solution App Services"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
-                android:text="How Mazdoor App Works"
+                android:text="How this App Works"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
