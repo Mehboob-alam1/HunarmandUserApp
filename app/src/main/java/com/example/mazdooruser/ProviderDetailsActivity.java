@@ -136,7 +136,7 @@ public class ProviderDetailsActivity extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProviderOrder");
         databaseReference.child(data.getUserId())
-                .child(pushId)
+
                 .setValue(data)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
