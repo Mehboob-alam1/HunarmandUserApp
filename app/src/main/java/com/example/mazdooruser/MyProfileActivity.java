@@ -33,7 +33,7 @@ private User user;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityMyProfileBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_my_profile);
+        setContentView(binding.getRoot());
 
 
         mRef = FirebaseDatabase.getInstance().getReference("Users");

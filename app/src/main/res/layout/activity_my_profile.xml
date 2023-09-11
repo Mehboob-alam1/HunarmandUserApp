@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Mehboob Alam"
+
                 android:id="@+id/txtUserName"
                 android:textSize="14sp"
                 android:textColor="@color/black" />
@@ -67,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="031719181460"
+
                         android:id="@+id/txtPhoneNumber"
                         android:padding="16dp"
                         android:textSize="10sp"
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="mehboobcodes@gmail.com"
+
                         android:padding="16dp"
                         android:id="@+id/txtGmail"
                         android:textSize="10sp"
@@ -120,7 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Konodass,Gilgit"
+
                         android:id="@+id/txtAddress"
                         android:textSize="10sp"
                         android:padding="16dp"
