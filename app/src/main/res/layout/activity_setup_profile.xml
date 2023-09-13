@@ -18,7 +18,7 @@
         tools:context=".ui.activities.CreateAccountActivity">
 
 
-        <androidx.cardview.widget.CardView
+        <ImageView
             android:id="@+id/btn_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -66,14 +66,7 @@
                 android:id="@+id/imgUserProfile"
                 android:src="@drawable/ic_baseline_person_24"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-
-                android:layout_marginTop="5dp"
-                android:text="Upload real pic otherwise your balance can't reach"
-                android:textColor="@color/black" />
 
 
 
@@ -99,6 +92,7 @@
                 android:textColor="@color/black" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
 
 
@@ -140,6 +134,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
               >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -178,6 +173,7 @@
                 android:textColor="@color/black" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
               >
                 <LinearLayout
@@ -213,6 +209,7 @@
                 android:textColor="@color/black" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                >
 
@@ -249,6 +246,7 @@
                 android:textColor="@color/black" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                >
                 <LinearLayout
@@ -288,6 +286,7 @@
                 android:textColor="@color/black" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
               >
 
