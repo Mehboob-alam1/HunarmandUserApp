@@ -38,7 +38,7 @@ public class CancelledAdapter extends RecyclerView.Adapter<CancelledAdapter.Canc
 //                .load(data.getImage())
 //                .placeholder(R.drawable.ic_baseline_person_pin_24)
 //                .into(holder.imgUser);
-        holder.userName.setText(data.getUserName());
+        holder.userName.setText(data.getUserName() + "" +data.getServiceType());
         holder.phoneNumber.setText(data.getPhonenumber());
         holder.providerLocation.setText(data.getCity());
         holder.userLocation.setText(data.getUserAddress());
