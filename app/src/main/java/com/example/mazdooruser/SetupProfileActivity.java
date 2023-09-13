@@ -99,24 +99,24 @@ public class SetupProfileActivity extends AppCompatActivity {
             finish();
         });
 
-        binding.etPassword.setOnTouchListener((view, event) -> {
-            // Check if the user clicked the password toggle drawable
-            if (event.getAction() == MotionEvent.ACTION_UP && event.getRawX() >= binding.etPassword.getRight() - binding.etPassword.getCompoundDrawables()[2].getBounds().width()) {
-                // Toggle the password visibility
-                if (binding.etPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
-                    // Hide the password
-                    binding.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    binding.etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_password_toggle_off, 0);
-                } else {
-                    // Show the password
-                    binding.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    binding.etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_password_toggle, 0);
-                }
-                return true;
-            } else {
-                return false;
-            }
-        });
+//        binding.etPassword.setOnTouchListener((view, event) -> {
+//            // Check if the user clicked the password toggle drawable
+//            if (event.getAction() == MotionEvent.ACTION_UP && event.getRawX() >= binding.etPassword.getRight() - binding.etPassword.getCompoundDrawables()[2].getBounds().width()) {
+//                // Toggle the password visibility
+//                if (binding.etPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
+//                    // Hide the password
+//                    binding.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                    binding.etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_password_toggle_off, 0);
+//                } else {
+//                    // Show the password
+//                    binding.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                    binding.etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_password_toggle, 0);
+//                }
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        });
     }
 
     private void pickImage() {

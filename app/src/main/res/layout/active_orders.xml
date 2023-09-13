@@ -114,22 +114,36 @@
 
             <TextView
                 android:id="@+id/txtRateBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_btn"
+                android:drawableStart="@drawable/ic_baseline_star_rate_24"
+                android:drawablePadding="8dp"
+android:textAlignment="center"
+                android:drawableTint="@color/white"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Rate Provider"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnCompleteOrder" />
+
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/imgPhone"
                 android:layout_marginEnd="24dp"
-                android:padding="8dp"
-        android:text="Rate Driver"
-                android:background="@drawable/bg_btn"
-                android:gravity="center_vertical"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/white"
-                android:textColor="@color/white"
-
-                android:drawableStart="@drawable/ic_baseline_star_rate_24"
-                app:layout_constraintBottom_toTopOf="@+id/view2"
+                android:src="@drawable/ic_baseline_phone_24"
+                app:layout_constraintBottom_toTopOf="@+id/btnCompleteOrder"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -213,10 +227,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
 
                 android:text="Set order as complete"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtUserLocation">

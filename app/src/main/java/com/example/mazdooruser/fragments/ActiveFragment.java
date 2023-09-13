@@ -67,7 +67,7 @@ public class ActiveFragment extends Fragment {
                     }
 
 
-                    adapter = new ActiveOrderAdapter(requireContext(), list);
+                    adapter = new ActiveOrderAdapter(requireContext(), list,requireActivity());
                     binding.activeriderRec.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                     binding.activeriderRec.setAdapter(adapter);
                     adapter.notifyDataSetChanged();

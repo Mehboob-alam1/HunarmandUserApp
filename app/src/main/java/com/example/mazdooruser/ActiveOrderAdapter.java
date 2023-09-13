@@ -4,6 +4,8 @@ import static com.example.mazdooruser.Utils.showSnackBar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +77,35 @@ private Context context;
 
             showBottomDialog(data);
         });
+        
+        holder.imgPhone.setOnClickListener(view ->{
+            
+            
+            callProvider(data.getPhonenumber());
+        });
+    }
+
+    private void callProvider(String phonenumber) {
+
+        Uri u = Uri.parse("tel:" + phonenumber);
+
+        // Create the intent and set the data for the
+        // intent as the phone number.
+        Intent i = new Intent(Intent.ACTION_DIAL, u);
+
+        try
+        {
+            // Launch the Phone app's dialer with a phone
+            // number to dial a call.
+            context.startActivity(i);
+        }
+        catch (SecurityException s)
+        {
+            // show() method display the toast with
+            // exception message.
+            Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG)
+                    .show();
+        }
     }
 
     private void showBottomDialog(UserInfoModel data) {
@@ -196,7 +227,7 @@ private Context context;
     }
 
     public class ActiveHolder extends RecyclerView.ViewHolder{
-    private ImageView imgUser,btnCancelOrder;
+    private ImageView imgUser,btnCancelOrder,imgPhone;
     private TextView userName,phoneNumber,providerLocation,userLocation,txtRate;
     private AppCompatButton btnCompleteOrder;
 
@@ -213,6 +244,7 @@ private Context context;
             userLocation=itemView.findViewById(R.id.txtUserLocation);
             btnCompleteOrder=itemView.findViewById(R.id.btnCompleteOrder);
             txtRate=itemView.findViewById(R.id.txtRateBtn);
+            imgPhone=itemView.findViewById(R.id.imgPhone);
         }
     }
 }

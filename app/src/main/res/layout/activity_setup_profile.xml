@@ -142,21 +142,29 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:orientation="vertical">
-                    <EditText
-                        android:id="@+id/et_password"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-
                         android:background="@null"
-                        android:drawableEnd="@drawable/ic_password_toggle"
-                        android:drawableRight="@drawable/ic_password_toggle"
-                        android:hint="Enter your password"
-                        android:inputType="textPassword"
-                        android:padding="16dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:textSize="14sp" />
+                        app:passwordToggleEnabled="true"
+                        >
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+
+                            android:background="@color/white"
+
+                            android:hint="Enter your password"
+                            android:inputType="textPassword"
+                            android:padding="16dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
