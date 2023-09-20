@@ -10,11 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -23,9 +28,10 @@ import java.util.ArrayList;
 
 public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHolder> {
     ArrayList<UserInfoModel> list;
-    DatabaseReference databaseReference;
+
     Context context;
     String typeOfProvider;
+    String available="";
 
     public ProviderAdapter(ArrayList<UserInfoModel> list, Context context, String typeOfProvider) {
         this.list = list;
@@ -48,7 +54,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
 
         holder.address.setText(data.getCity());
         holder.name.setText(data.getName());
-
+        fetchStatus(data.getUserId(),holder.txtStatus);
         holder.phoneNumber.setText(data.getPhonenumber());
         Picasso.get().load(data.getImage()).placeholder(R.drawable.provider).into(holder.profileImage);
 
@@ -58,17 +64,17 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
             public void onClick(View view) {
                 Gson gson = new Gson();
 
-             String str=   gson.toJson(data);
-                   Intent intent=new Intent(context,ProviderDetailsActivity.class);
-                   intent.putExtra("city",data.getCity());
-                   intent.putExtra("desc",data.getDescription());
-                   intent.putExtra("image",data.getImage());
-                   intent.putExtra("name",data.getName());
-                   intent.putExtra("phone",data.getPhonenumber());
-                   intent.putExtra("servtype",data.getServiceType());
-                intent.putExtra("userId",data.getUserId());
+                String str = gson.toJson(data);
+                Intent intent = new Intent(context, ProviderDetailsActivity.class);
+                intent.putExtra("city", data.getCity());
+                intent.putExtra("desc", data.getDescription());
+                intent.putExtra("image", data.getImage());
+                intent.putExtra("name", data.getName());
+                intent.putExtra("phone", data.getPhonenumber());
+                intent.putExtra("servtype", data.getServiceType());
+                intent.putExtra("userId", data.getUserId());
 
-                   context.startActivity(intent);
+                context.startActivity(intent);
 
             }
         });
@@ -76,8 +82,8 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" +data.getPhonenumber()));
-               context. startActivity(intent);
+                intent.setData(Uri.parse("tel:" + data.getPhonenumber()));
+                context.startActivity(intent);
             }
         });
 
@@ -85,16 +91,19 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
         holder.btnCheckRatings.setOnClickListener(view -> {
 
 
-             Intent intent = new Intent(context,RatingsActivity.class);
-            intent.putExtra("city",data.getCity());
-            intent.putExtra("desc",data.getDescription());
-            intent.putExtra("image",data.getImage());
-            intent.putExtra("name",data.getName());
-            intent.putExtra("phone",data.getPhonenumber());
-            intent.putExtra("servtype",data.getServiceType());
-            intent.putExtra("userId",data.getUserId());
+            Intent intent = new Intent(context, RatingsActivity.class);
+            intent.putExtra("city", data.getCity());
+            intent.putExtra("desc", data.getDescription());
+            intent.putExtra("image", data.getImage());
+            intent.putExtra("name", data.getName());
+            intent.putExtra("phone", data.getPhonenumber());
+            intent.putExtra("servtype", data.getServiceType());
+            intent.putExtra("userId", data.getUserId());
             context.startActivity(intent);
         });
+
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +130,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
                 Log.d("Directions", url);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-               context. startActivity(i);
+                context.startActivity(i);
             }
         });
 
@@ -133,11 +142,11 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
         return list.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
-        ImageView profileImage, phoneImage,moreImage;
-        TextView name, phoneNumber, address;
-        LinearLayout btnCheckRatings;
 
+    public class viewHolder extends RecyclerView.ViewHolder {
+        ImageView profileImage, phoneImage, moreImage;
+        TextView name, phoneNumber, address,txtStatus;
+        LinearLayout btnCheckRatings;
 
 
         public viewHolder(@NonNull View itemView) {
@@ -148,8 +157,49 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.viewHo
             name = itemView.findViewById(R.id.txtnameofuser);
             phoneNumber = itemView.findViewById(R.id.txtphonenumber);
             address = itemView.findViewById(R.id.txtAddress);
-            moreImage=itemView.findViewById(R.id.btnMore);
-            btnCheckRatings=itemView.findViewById(R.id.btnCheckRatings);
+            moreImage = itemView.findViewById(R.id.btnMore);
+            btnCheckRatings = itemView.findViewById(R.id.btnCheckRatings);
+            txtStatus = itemView.findViewById(R.id.txtStatusAvailability);
         }
+    }
+
+
+    private void fetchStatus(String userId, TextView txtStatus) {
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProviderAvailability");
+
+
+        databaseReference.child(userId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (snapshot.exists()) {
+
+                            Available data = snapshot.getValue(Available.class);
+
+                            assert data != null;
+                            if (data.isAvailable) {
+                                available = "Active";
+                                txtStatus.setText(available);
+                            }
+                           else {
+                                available = "Offline";
+                                txtStatus.setText("offline");
+                            }
+
+                        }else{
+                            available = "Offline";
+                            txtStatus.setText("offline");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        available="Out of reach";
+                        Toast.makeText(context, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
